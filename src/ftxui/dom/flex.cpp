@@ -47,14 +47,38 @@ class NotFlex : public Flex {
   }
 };
 
+/// @brief An element that will take expand proportionnally to the space left in
+/// a container.
+/// @ingroup dom
 Element filler() {
   return std::make_shared<Flex>();
 }
 
-Element flex(Element child) {
-  return std::make_shared<Flex>(std::move(child));
+/// @brief Make a child element to expand proportionnally to the space left in a
+/// container.
+///
+/// #### Examples:
+///
+/// ~~~cpp
+///   hbox({
+///     text(L"left") | border ,
+///     text(L"middle") | border | flex,
+///     text(L"right") | border,
+///   });
+/// ~~~
+///
+/// #### Output:
+///
+/// ~~~bash
+/// ┌────┐┌─────────────────────────────────────────────────────────┐┌─────┐
+/// │left││middle                                                   ││right│
+/// └────┘└─────────────────────────────────────────────────────────┘└─────┘
+/// ~~~
+Element flex(Element input) {
+  return std::make_shared<Flex>(std::move(input));
 }
 
+/// @brief Make a child element not to be flexible anymore.
 Element notflex(Element child) {
   return std::make_shared<NotFlex>(std::move(child));
 }
